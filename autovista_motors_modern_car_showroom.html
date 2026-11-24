@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoVista Motors | Find Your Perfect Drive</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#090B0E',
+            charcoal: '#11151C',
+            graphite: '#191F29',
+            steel: '#262E3D',
+            crimson: '#E11D48',
+            crimsonDark: '#BE123C',
+            silver: '#94A3B8',
+            cloud: '#F8FAFC'
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            glow: '0 0 30px rgba(225, 29, 72, 0.22)',
+            card: '0 14px 34px -12px rgba(0, 0, 0, 0.55)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* Custom Automotive Theme Styling & Smooth Transitions */
+    :root {
+      --bg-primary: #090b0e;
+      --bg-secondary: #11151c;
+      --accent: #e11d48;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: #090b0e;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+    }
+
+    /* Sticky Glass Navbar */
+    .glass-nav {
+      background: rgba(9, 11, 14, 0.84);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Subtle Hero Grid & Vignette */
+    .hero-vignette {
+      background:
+        radial-gradient(circle at 75% 35%, rgba(225, 29, 72, 0.16), transparent 48%),
+        linear-gradient(90deg, rgba(9, 11, 14, 0.94) 0%, rgba(9, 11, 14, 0.72) 55%, rgba(9, 11, 14, 0.45) 100%),
+        linear-gradient(180deg, rgba(9, 11, 14, 0.35) 0%, rgba(9, 11, 14, 0.98) 100%);
+    }
+
+    /* Car Card Hover Animation */
+    .car-card {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .car-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(225, 29, 72, 0.55);
+      box-shadow: 0 22px 42px -14px rgba(0, 0, 0, 0.75), 0 0 24px rgba(225, 29, 72, 0.14);
+    }
+    .car-card:hover .car-img {
+      transform: scale(1.06);
+    }
+    .car-img {
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Active Navigation Tab Indicator */
+    .nav-link.active {
+      color: #ffffff;
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 2px;
+      background: #e11d48;
+      border-radius: 999px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090b0e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #262e3d;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #e11d48;
+    }
+
+    /* Range Input Styling */
+    input[type="range"].auto-slider {
+      accent-color: #e11d48;
+    }
+
+    /* Section Reveal Animation */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .view-enter {
+      animation: fadeSlideUp 0.35s ease forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-obsidian text-cloud selection:bg-crimson selection:text-white">
+
+  <!-- ==================== STICKY NAVIGATION HEADER ==================== -->
+  <header id="navbar" class="sticky top-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Brand Logo -->
+        <button type="button" onclick="navigateTo('home')" class="flex items-center gap-3 text-left group focus:outline-none">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-crimson to-crimsonDark flex items-center justify-center text-white shadow-glow group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-car-side text-lg"></i>
+          </div>
+          <div>
+            <span class="block font-display text-xl sm:text-2xl font-bold tracking-tight text-white leading-none">
+              AUTOVISTA <span class="text-crimson">MOTORS</span>
+            </span>
+            <span class="block text-[10px] uppercase tracking-[0.26em] text-silver mt-1">
+              Precision Showroom
+            </span>
+          </div>
+        </button>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center gap-7" aria-label="Primary Navigation">
+          <button type="button" data-nav="home" onclick="navigateTo('home')" class="nav-link relative text-sm font-medium text-silver hover:text-white transition-colors">
+            Home
+          </button>
+          <button type="button" data-nav="models" onclick="navigateTo('models')" class="nav-link relative text-sm font-medium text-silver hover:text-white transition-colors">
+            Car Models
+          </button>
+          <button type="button" data-nav="compare" onclick="navigateTo('compare')" class="nav-link relative text-sm font-medium text-silver hover:text-white transition-colors inline-flex items-center gap-2">
+            Compare
+            <span id="nav-compare-badge" class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-crimson text-white">0</span>
+          </button>
+          <button type="button" data-nav="test-drive" onclick="navigateTo('test-drive')" class="nav-link relative text-sm font-medium text-silver hover:text-white transition-colors">
+            Test Drive
+          </button>
+          <button type="button" data-nav="contact" onclick="navigateTo('contact')" class="nav-link relative text-sm font-medium text-silver hover:text-white transition-colors">
+            Contact
+          </button>
+        </nav>
+
+        <!-- Desktop CTA & Mobile Hamburger -->
+        <div class="flex items-center gap-3">
+          <button type="button" onclick="openTestDriveForCar(null)" class="hidden sm:inline-flex items-center gap-2 bg-white text-obsidian hover:bg-crimson hover:text-white font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all duration-200">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Book Test Drive</span>
+          </button>
+
+          <button type="button" id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-lg bg-graphite border border-white/10 flex items-center justify-center text-white hover:border-crimson transition-colors" aria-label="Toggle Menu" aria-expanded="false">
+            <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-charcoal border-t border-white/10 px-4 pt-3 pb-6 space-y-2">
+      <button type="button" onclick="navigateTo('home'); toggleMobileMenu(false);" class="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-cloud hover:bg-graphite flex items-center justify-between">
+        <span>Home</span><i class="fa-solid fa-chevron-right text-xs text-silver"></i>
+      </button>
+      <button type="button" onclick="navigateTo('models'); toggleMobileMenu(false);" class="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-cloud hover:bg-graphite flex items-center justify-between">
+        <span>Car Models (8 Vehicles)</span><i class="fa-solid fa-chevron-right text-xs text-silver"></i>
+      </button>
+      <button type="button" onclick="navigateTo('compare'); toggleMobileMenu(false);" class="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-cloud hover:bg-graphite flex items-center justify-between">
+        <span>Compare Cars</span>
+        <span id="mobile-compare-badge" class="px-2 py-0.5 text-xs font-bold rounded-full bg-crimson text-white">0</span>
+      </button>
+      <button type="button" onclick="navigateTo('test-drive'); toggleMobileMenu(false);" class="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-cloud hover:bg-graphite flex items-center justify-between">
+        <span>Book a Test Drive</span><i class="fa-solid fa-chevron-right text-xs text-silver"></i>
+      </button>
+      <button type="button" onclick="navigateTo('contact'); toggleMobileMenu(false);" class="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-cloud hover:bg-graphite flex items-center justify-between">
+        <span>Contact Showroom</span><i class="fa-solid fa-chevron-right text-xs text-silver"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main class="flex-1">
+
+    <!-- ========================================================== -->
+    <!-- 1. HOME VIEW                                               -->
+    <!-- ========================================================== -->
+    <section id="view-home" class="page-view view-enter">
+      <!-- Hero Banner -->
+      <div class="relative min-h-[86vh] flex items-center overflow-hidden bg-obsidian">
+        <img
+          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2000&q=85"
+          alt="Luxury dark performance car in dramatic showroom lighting"
+          onerror="this.src='https://placehold.co/1920x1080/11151c/f8fafc?text=AutoVista+Motors+Showroom'"
+          class="absolute inset-0 w-full h-full object-cover object-center scale-105"
+        />
+        <div class="absolute inset-0 hero-vignette"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold tracking-wider uppercase text-cloud mb-6 backdrop-blur-sm">
+              <span class="w-2 h-2 rounded-full bg-crimson animate-pulse"></span>
+              <span>2026 Performance & Luxury Collection</span>
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.06] mb-6">
+              Find Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-cloud to-crimson">Perfect Drive</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
+              Explore precision-engineered sedans, commanding SUVs, agile hatchbacks, zero-emission EVs, and high-output sports machines curated at AutoVista Motors.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+              <button type="button" onclick="navigateTo('models')" class="inline-flex items-center justify-center gap-2.5 bg-crimson hover:bg-crimsonDark text-white font-semibold px-7 py-4 rounded-xl shadow-glow transition-all transform hover:-translate-y-0.5 text-sm uppercase tracking-wider">
+                <i class="fa-solid fa-car"></i>
+                <span>Explore Cars</span>
+              </button>
+              <button type="button" onclick="openTestDriveForCar(null)" class="inline-flex items-center justify-center gap-2.5 bg-white/10 hover:bg-white text-white hover:text-obsidian border border-white/25 font-semibold px-7 py-4 rounded-xl backdrop-blur-sm transition-all text-sm uppercase tracking-wider">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Book a Test Drive</span>
+              </button>
+            </div>
+
+            <!-- Quick Showroom Metrics -->
+            <div class="grid grid-cols-3 gap-4 sm:gap-8 pt-6 border-t border-white/15 max-w-lg">
+              <div>
+                <p class="font-display text-2xl sm:text-3xl font-bold text-white">8+</p>
+                <p class="text-xs text-silver uppercase tracking-wider mt-0.5">Signature Models</p>
+              </div>
+              <div>
+                <p class="font-display text-2xl sm:text-3xl font-bold text-white">100%</p>
+                <p class="text-xs text-silver uppercase tracking-wider mt-0.5">Certified Inspection</p>
+              </div>
+              <div>
+                <p class="font-display text-2xl sm:text-3xl font-bold text-white">4.9 ★</p>
+                <p class="text-xs text-silver uppercase tracking-wider mt-0.5">Buyer Rating</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Car Models Section -->
+      <div class="py-20 bg-charcoal border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Curated Lineup</span>
+              <h2 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2">Featured Car Models</h2>
+            </div>
+            <button type="button" onclick="navigateTo('models')" class="inline-flex items-center gap-2 text-sm font-semibold text-cloud hover:text-crimson transition-colors self-start md:self-auto">
+              <span>View All 8 Vehicles</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <div id="featured-cars-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Choose Us Section -->
+      <div class="py-20 bg-obsidian border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">The AutoVista Standard</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">Why Choose AutoVista Motors</h2>
+            <p class="text-silver text-sm sm:text-base">
+              Built around clarity, engineering integrity, and effortless ownership from your first test drive to every mile ahead.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-charcoal border border-white/10 rounded-2xl p-6 hover:border-crimson/50 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-crimson/15 text-crimson flex items-center justify-center text-xl mb-5">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3 class="font-display text-xl font-bold text-white mb-2">Certified Vehicles</h3>
+              <p class="text-sm text-silver leading-relaxed">
+                Every vehicle passes a rigorous 180-point mechanical, safety, and diagnostic inspection with verified history.
+              </p>
+            </div>
+
+            <div class="bg-charcoal border border-white/10 rounded-2xl p-6 hover:border-crimson/50 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-crimson/15 text-crimson flex items-center justify-center text-xl mb-5">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+              </div>
+              <h3 class="font-display text-xl font-bold text-white mb-2">Easy Financing</h3>
+              <p class="text-sm text-silver leading-relaxed">
+                Flexible loan tenures, low-APR bank partnerships, and rapid digital approvals tailored to your budget.
+              </p>
+            </div>
+
+            <div class="bg-charcoal border border-white/10 rounded-2xl p-6 hover:border-crimson/50 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-crimson/15 text-crimson flex items-center justify-center text-xl mb-5">
+                <i class="fa-solid fa-headset"></i>
+              </div>
+              <h3 class="font-display text-xl font-bold text-white mb-2">Expert Support</h3>
+              <p class="text-sm text-silver leading-relaxed">
+                Dedicated automotive specialists and factory-trained technicians guide you without high-pressure tactics.
+              </p>
+            </div>
+
+            <div class="bg-charcoal border border-white/10 rounded-2xl p-6 hover:border-crimson/50 transition-colors">
+              <div class="w-12 h-12 rounded-xl bg-crimson/15 text-crimson flex items-center justify-center text-xl mb-5">
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <h3 class="font-display text-xl font-bold text-white mb-2">Transparent Pricing</h3>
+              <p class="text-sm text-silver leading-relaxed">
+                Clear ex-showroom figures, itemized RTO and insurance estimates, and zero hidden showroom markups.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Testimonials Section -->
+      <div class="py-20 bg-charcoal border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Verified Drivers</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2">Customer Testimonials</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            <div class="bg-obsidian border border-white/10 rounded-2xl p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                  “Comparing the Apex EV GT and Horizon SUV side by side made my decision effortless. The on-road cost breakdown was completely upfront and accurate.”
+                </p>
+              </div>
+              <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div class="w-10 h-10 rounded-full bg-crimson text-white font-bold flex items-center justify-center text-sm">AR</div>
+                <div>
+                  <p class="font-semibold text-white text-sm">Arjun Rao</p>
+                  <p class="text-xs text-silver">Bought Apex EV GT • Hyderabad</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-obsidian border border-white/10 rounded-2xl p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                  “Booked a morning test drive online and the car was spotless and ready on arrival. Smooth financing and delivery within three days.”
+                </p>
+              </div>
+              <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div class="w-10 h-10 rounded-full bg-white text-obsidian font-bold flex items-center justify-center text-sm">NK</div>
+                <div>
+                  <p class="font-semibold text-white text-sm">Neha Kulkarni</p>
+                  <p class="text-xs text-silver">Bought Sovereign S90 • Mumbai</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-obsidian border border-white/10 rounded-2xl p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                  “The Velocity R-Coupe delivers thrilling acceleration while still feeling refined for daily highway runs. Best showroom experience I have had.”
+                </p>
+              </div>
+              <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div class="w-10 h-10 rounded-full bg-crimson text-white font-bold flex items-center justify-center text-sm">DM</div>
+                <div>
+                  <p class="font-semibold text-white text-sm">Daniel Meyer</p>
+                  <p class="text-xs text-silver">Bought Velocity R-Coupe • Bengaluru</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 2. CAR MODELS CATALOG VIEW                                 -->
+    <!-- ========================================================== -->
+    <section id="view-models" class="page-view hidden py-14 sm:py-20 bg-obsidian">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Showroom Inventory</span>
+            <h1 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2">Explore Car Models</h1>
+            <p class="text-silver text-sm sm:text-base mt-2">
+              Filter across brands, body styles, fuel types, transmissions, and budget to find your match.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button type="button" onclick="navigateTo('compare')" class="inline-flex items-center gap-2 bg-graphite hover:bg-steel border border-white/15 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+              <i class="fa-solid fa-scale-balanced text-crimson"></i>
+              <span>Compare Selected (<span id="models-compare-count">0</span>/3)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters Panel -->
+        <div class="bg-charcoal border border-white/10 rounded-2xl p-5 sm:p-6 mb-10 shadow-card">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <!-- Brand Filter -->
+            <div>
+              <label for="filter-brand" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Brand</label>
+              <select id="filter-brand" onchange="applyFilters()" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-3.5 py-2.5 text-sm focus:border-crimson focus:outline-none">
+                <option value="ALL">All Brands</option>
+              </select>
+            </div>
+
+            <!-- Body Type Filter -->
+            <div>
+              <label for="filter-body" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Body Type</label>
+              <select id="filter-body" onchange="applyFilters()" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-3.5 py-2.5 text-sm focus:border-crimson focus:outline-none">
+                <option value="ALL">All Body Types</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Coupe">Coupe</option>
+                <option value="Electric">Electric</option>
+              </select>
+            </div>
+
+            <!-- Fuel Type Filter -->
+            <div>
+              <label for="filter-fuel" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Fuel Type</label>
+              <select id="filter-fuel" onchange="applyFilters()" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-3.5 py-2.5 text-sm focus:border-crimson focus:outline-none">
+                <option value="ALL">All Fuel Types</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+
+            <!-- Transmission Filter -->
+            <div>
+              <label for="filter-transmission" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Transmission</label>
+              <select id="filter-transmission" onchange="applyFilters()" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-3.5 py-2.5 text-sm focus:border-crimson focus:outline-none">
+                <option value="ALL">All Transmissions</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+                <option value="Direct Drive EV">Direct Drive EV</option>
+              </select>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wider mb-2">
+                <label for="filter-max-price" class="text-silver">Max Price</label>
+                <span id="filter-price-label" class="text-crimson font-bold">$120,000</span>
+              </div>
+              <input id="filter-max-price" type="range" min="20000" max="120000" step="5000" value="120000" oninput="applyFilters()" class="w-full auto-slider cursor-pointer mt-2" />
+            </div>
+          </div>
+
+          <!-- Filter Summary & Reset -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-4 mt-5 border-t border-white/10 text-xs sm:text-sm">
+            <p id="results-count" class="text-silver">Showing 8 of 8 vehicles</p>
+            <button type="button" onclick="resetFilters()" class="text-crimson hover:text-white font-semibold inline-flex items-center gap-1.5 transition-colors">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset All Filters</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cars Grid -->
+        <div id="models-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="models-empty" class="hidden text-center py-16 bg-charcoal border border-white/10 rounded-2xl">
+          <i class="fa-solid fa-car-burst text-4xl text-crimson mb-3"></i>
+          <h3 class="font-display text-xl font-bold text-white mb-2">No Cars Match Your Filters</h3>
+          <p class="text-silver text-sm mb-5">Try increasing the price slider or resetting your filter selections.</p>
+          <button type="button" onclick="resetFilters()" class="bg-crimson hover:bg-crimsonDark text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors">
+            Reset Filters
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 3. CAR DETAILS VIEW                                        -->
+    <!-- ========================================================== -->
+    <section id="view-details" class="page-view hidden py-12 sm:py-16 bg-obsidian">
+      <div id="car-details-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 4. COMPARISON VIEW                                         -->
+    <!-- ========================================================== -->
+    <section id="view-compare" class="page-view hidden py-14 sm:py-20 bg-obsidian">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Side-by-Side Spec Analysis</span>
+            <h1 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2">Compare Vehicles</h1>
+            <p class="text-silver text-sm sm:text-base mt-2">
+              Select 2 or 3 cars to compare pricing, performance, efficiency, dimensions, and key safety equipment.
+            </p>
+          </div>
+
+          <button type="button" onclick="clearComparison()" class="inline-flex items-center gap-2 bg-graphite hover:bg-crimson text-white border border-white/15 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors self-start sm:self-auto">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Clear Comparison</span>
+          </button>
+        </div>
+
+        <!-- Slot Picker Bar -->
+        <div class="bg-charcoal border border-white/10 rounded-2xl p-5 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="compare-selectors">
+            <!-- 3 Slot Selectors rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Comparison Output -->
+        <div id="compare-table-wrapper">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 5. TEST DRIVE BOOKING VIEW                                 -->
+    <!-- ========================================================== -->
+    <section id="view-test-drive" class="page-view hidden py-14 sm:py-20 bg-obsidian">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Behind The Wheel</span>
+          <h1 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2 mb-3">Book a Test Drive</h1>
+          <p class="text-silver text-sm sm:text-base">
+            Experience your chosen model firsthand at your preferred AutoVista Motors showroom.
+          </p>
+        </div>
+
+        <div class="bg-charcoal border border-white/10 rounded-2xl p-6 sm:p-10 shadow-card">
+          <!-- Confirmation Banner -->
+          <div id="td-confirmation" class="hidden mb-8 p-5 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-200 flex items-start gap-3.5">
+            <i class="fa-solid fa-circle-check text-2xl text-emerald-400 mt-0.5 shrink-0"></i>
+            <div id="td-confirmation-text" class="text-sm leading-relaxed">
+              Thank you! Your test-drive request has been received. Our team will contact you shortly.
+            </div>
+          </div>
+
+          <form id="test-drive-form" onsubmit="handleTestDriveSubmit(event)" class="space-y-6" novalidate>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div>
+                <label for="td-name" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Full Name *</label>
+                <input id="td-name" type="text" required placeholder="Alex Morgan" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                <p data-error-for="td-name" class="hidden text-xs text-rose-400 mt-1.5">Please enter your full name.</p>
+              </div>
+
+              <div>
+                <label for="td-email" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Email Address *</label>
+                <input id="td-email" type="email" required placeholder="alex@example.com" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                <p data-error-for="td-email" class="hidden text-xs text-rose-400 mt-1.5">Please enter a valid email address.</p>
+              </div>
+
+              <div>
+                <label for="td-phone" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Phone Number *</label>
+                <input id="td-phone" type="tel" required placeholder="+1 (555) 234-8910" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                <p data-error-for="td-phone" class="hidden text-xs text-rose-400 mt-1.5">Please enter your phone number.</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="td-car" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Preferred Car Model *</label>
+                <select id="td-car" required class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none">
+                  <option value="">Select a vehicle</option>
+                </select>
+                <p data-error-for="td-car" class="hidden text-xs text-rose-400 mt-1.5">Please select a preferred car model.</p>
+              </div>
+
+              <div>
+                <label for="td-showroom" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Showroom Location *</label>
+                <select id="td-showroom" required class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none">
+                  <option value="">Select showroom location</option>
+                  <option value="AutoVista Downtown Flagship">AutoVista Downtown Flagship</option>
+                  <option value="AutoVista Harbor Boulevard">AutoVista Harbor Boulevard</option>
+                  <option value="AutoVista Westgate Auto Mall">AutoVista Westgate Auto Mall</option>
+                </select>
+                <p data-error-for="td-showroom" class="hidden text-xs text-rose-400 mt-1.5">Please choose a showroom location.</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="td-date" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Preferred Date *</label>
+                <input id="td-date" type="date" required class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                <p data-error-for="td-date" class="hidden text-xs text-rose-400 mt-1.5">Please select a valid date.</p>
+              </div>
+
+              <div>
+                <label for="td-slot" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Preferred Time Slot *</label>
+                <select id="td-slot" required class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none">
+                  <option value="">Select time slot</option>
+                  <option value="09:30 AM – 11:00 AM">09:30 AM – 11:00 AM</option>
+                  <option value="11:30 AM – 01:00 PM">11:30 AM – 01:00 PM</option>
+                  <option value="02:00 PM – 03:30 PM">02:00 PM – 03:30 PM</option>
+                  <option value="04:00 PM – 05:30 PM">04:00 PM – 05:30 PM</option>
+                </select>
+                <p data-error-for="td-slot" class="hidden text-xs text-rose-400 mt-1.5">Please choose a preferred time slot.</p>
+              </div>
+            </div>
+
+            <div>
+              <label for="td-message" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Additional Message</label>
+              <textarea id="td-message" rows="3" placeholder="Any specific trim preferences, trade-in questions, or financing notes..." class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-crimson hover:bg-crimsonDark text-white font-semibold px-8 py-4 rounded-xl shadow-glow transition-all text-sm uppercase tracking-wider">
+              <i class="fa-solid fa-check"></i>
+              <span>Confirm Test Drive Request</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 6. CONTACT VIEW                                            -->
+    <!-- ========================================================== -->
+    <section id="view-contact" class="page-view hidden py-14 sm:py-20 bg-obsidian">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Visit Or Reach Out</span>
+          <h1 class="font-display text-3xl sm:text-5xl font-bold text-white mt-2 mb-3">Contact AutoVista Motors</h1>
+          <p class="text-silver text-sm sm:text-base">
+            Connect with our sales advisors, service desk, or corporate fleet team.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Showroom Details + Map -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-charcoal border border-white/10 rounded-2xl p-5">
+                <i class="fa-solid fa-location-dot text-crimson text-xl mb-3"></i>
+                <h3 class="font-display font-bold text-white text-base mb-1">Showroom Address</h3>
+                <p class="text-xs text-silver leading-relaxed">
+                  740 Grand Motorway Blvd, Suite 100, Metro Auto District
+                </p>
+              </div>
+
+              <div class="bg-charcoal border border-white/10 rounded-2xl p-5">
+                <i class="fa-solid fa-phone-volume text-crimson text-xl mb-3"></i>
+                <h3 class="font-display font-bold text-white text-base mb-1">Phone Number</h3>
+                <p class="text-xs text-silver leading-relaxed">
+                  Sales: +1 (800) 555-0194<br />
+                  Service: +1 (800) 555-0199
+                </p>
+              </div>
+
+              <div class="bg-charcoal border border-white/10 rounded-2xl p-5">
+                <i class="fa-solid fa-envelope text-crimson text-xl mb-3"></i>
+                <h3 class="font-display font-bold text-white text-base mb-1">Email Address</h3>
+                <p class="text-xs text-silver leading-relaxed">
+                  concierge@autovistamotors.com<br />
+                  fleet@autovistamotors.com
+                </p>
+              </div>
+
+              <div class="bg-charcoal border border-white/10 rounded-2xl p-5">
+                <i class="fa-solid fa-clock text-crimson text-xl mb-3"></i>
+                <h3 class="font-display font-bold text-white text-base mb-1">Working Hours</h3>
+                <p class="text-xs text-silver leading-relaxed">
+                  Mon–Sat: 9:00 AM – 8:00 PM<br />
+                  Sunday: 10:00 AM – 6:00 PM
+                </p>
+              </div>
+            </div>
+
+            <!-- Interactive Map Embed -->
+            <div class="bg-charcoal border border-white/10 rounded-2xl overflow-hidden shadow-card">
+              <div class="h-72 w-full">
+                <iframe
+                  title="AutoVista Motors Showroom Map"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-122.425%2C37.770%2C-122.405%2C37.782&layer=mapnik"
+                  class="w-full h-full border-0 grayscale contrast-125 opacity-90"
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <div class="px-5 py-3 bg-graphite flex items-center justify-between text-xs text-silver">
+                <span><i class="fa-solid fa-map-pin text-crimson mr-1.5"></i>AutoVista Flagship Showroom & Delivery Bay</span>
+                <span>Valet Parking Available</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="lg:col-span-6 bg-charcoal border border-white/10 rounded-2xl p-6 sm:p-8 shadow-card">
+            <h2 class="font-display text-2xl font-bold text-white mb-6">Send Us a Message</h2>
+
+            <div id="contact-confirmation" class="hidden mb-6 p-4 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-200 text-sm">
+              Thank you for contacting AutoVista Motors! Our showroom team has received your inquiry and will reply shortly.
+            </div>
+
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="ct-name" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Name *</label>
+                  <input id="ct-name" type="text" required placeholder="Your full name" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                  <p data-error-for="ct-name" class="hidden text-xs text-rose-400 mt-1">Please enter your name.</p>
+                </div>
+
+                <div>
+                  <label for="ct-email" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Email *</label>
+                  <input id="ct-email" type="email" required placeholder="you@example.com" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                  <p data-error-for="ct-email" class="hidden text-xs text-rose-400 mt-1">Please enter a valid email.</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="ct-phone" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Phone *</label>
+                  <input id="ct-phone" type="tel" required placeholder="+1 (555) 000-0000" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                  <p data-error-for="ct-phone" class="hidden text-xs text-rose-400 mt-1">Please enter your phone number.</p>
+                </div>
+
+                <div>
+                  <label for="ct-subject" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Subject *</label>
+                  <input id="ct-subject" type="text" required placeholder="Vehicle availability / Financing" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none" />
+                  <p data-error-for="ct-subject" class="hidden text-xs text-rose-400 mt-1">Please enter a subject.</p>
+                </div>
+              </div>
+
+              <div>
+                <label for="ct-message" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">Message *</label>
+                <textarea id="ct-message" rows="5" required placeholder="How can our team assist you?" class="w-full bg-graphite text-white border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-crimson focus:outline-none"></textarea>
+                <p data-error-for="ct-message" class="hidden text-xs text-rose-400 mt-1">Please write your message.</p>
+              </div>
+
+              <button type="submit" class="w-full bg-white hover:bg-crimson text-obsidian hover:text-white font-bold py-3.5 rounded-xl transition-colors text-sm uppercase tracking-wider">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-charcoal border-t border-white/10 pt-16 pb-10 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <!-- Brand Info -->
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-crimson flex items-center justify-center text-white">
+              <i class="fa-solid fa-car-side"></i>
+            </div>
+            <span class="font-display text-xl font-bold text-white">AUTOVISTA <span class="text-crimson">MOTORS</span></span>
+          </div>
+          <p class="text-xs sm:text-sm text-silver leading-relaxed mb-5">
+            Premier automotive showroom offering certified luxury, performance, electric, and everyday vehicles with transparent pricing.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="#facebook" onclick="event.preventDefault(); showToast('AutoVista Motors on Facebook');" aria-label="Facebook" class="w-9 h-9 rounded-lg bg-graphite hover:bg-crimson text-silver hover:text-white flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-facebook-f text-sm"></i>
+            </a>
+            <a href="#instagram" onclick="event.preventDefault(); showToast('AutoVista Motors on Instagram');" aria-label="Instagram" class="w-9 h-9 rounded-lg bg-graphite hover:bg-crimson text-silver hover:text-white flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-instagram text-sm"></i>
+            </a>
+            <a href="#youtube" onclick="event.preventDefault(); showToast('AutoVista Motors on YouTube');" aria-label="YouTube" class="w-9 h-9 rounded-lg bg-graphite hover:bg-crimson text-silver hover:text-white flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-youtube text-sm"></i>
+            </a>
+            <a href="#linkedin" onclick="event.preventDefault(); showToast('AutoVista Motors on LinkedIn');" aria-label="LinkedIn" class="w-9 h-9 rounded-lg bg-graphite hover:bg-crimson text-silver hover:text-white flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-linkedin-in text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div>
+          <h4 class="font-display font-bold text-white text-sm uppercase tracking-wider mb-4">Quick Navigation</h4>
+          <ul class="space-y-2.5 text-sm text-silver">
+            <li><button type="button" onclick="navigateTo('home')" class="hover:text-crimson transition-colors">Home</button></li>
+            <li><button type="button" onclick="navigateTo('models')" class="hover:text-crimson transition-colors">Car Models</button></li>
+            <li><button type="button" onclick="navigateTo('compare')" class="hover:text-crimson transition-colors">Compare Cars</button></li>
+            <li><button type="button" onclick="navigateTo('test-drive')" class="hover:text-crimson transition-colors">Book a Test Drive</button></li>
+            <li><button type="button" onclick="navigateTo('contact')" class="hover:text-crimson transition-colors">Contact Us</button></li>
+          </ul>
+        </div>
+
+        <!-- Popular Categories -->
+        <div>
+          <h4 class="font-display font-bold text-white text-sm uppercase tracking-wider mb-4">Explore By Body Type</h4>
+          <ul class="space-y-2.5 text-sm text-silver">
+            <li><button type="button" onclick="filterByBodyType('Sedan')" class="hover:text-crimson transition-colors">Executive & Sport Sedans</button></li>
+            <li><button type="button" onclick="filterByBodyType('SUV')" class="hover:text-crimson transition-colors">Commanding SUVs</button></li>
+            <li><button type="button" onclick="filterByBodyType('Electric')" class="hover:text-crimson transition-colors">Zero-Emission EVs</button></li>
+            <li><button type="button" onclick="filterByBodyType('Coupe')" class="hover:text-crimson transition-colors">Performance Coupes</button></li>
+            <li><button type="button" onclick="filterByBodyType('Hatchback')" class="hover:text-crimson transition-colors">Agile City Hatchbacks</button></li>
+          </ul>
+        </div>
+
+        <!-- Showroom Contact -->
+        <div>
+          <h4 class="font-display font-bold text-white text-sm uppercase tracking-wider mb-4">Showroom Contact</h4>
+          <ul class="space-y-3 text-sm text-silver">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-location-dot text-crimson mt-1"></i>
+              <span>740 Grand Motorway Blvd, Suite 100, Metro Auto District</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-phone text-crimson"></i>
+              <span>+1 (800) 555-0194</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-envelope text-crimson"></i>
+              <span>concierge@autovistamotors.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-silver">
+        <p>&copy; <span id="footer-year">2026</span> AutoVista Motors. All rights reserved.</p>
+        <p>Crafted for modern automotive retail excellence.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Comparison Dock (when 1+ cars selected outside Compare view) -->
+  <div id="floating-compare-bar" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-charcoal/95 backdrop-blur-md border border-crimson/50 shadow-glow rounded-2xl px-4 py-3 flex items-center gap-4 max-w-[94vw]">
+    <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-white">
+      <i class="fa-solid fa-scale-balanced text-crimson"></i>
+      <span><span id="floating-compare-count">0</span> / 3 Selected</span>
+    </div>
+    <button type="button" onclick="navigateTo('compare')" class="bg-crimson hover:bg-crimsonDark text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors">
+      Compare Now
+    </button>
+    <button type="button" onclick="clearComparison()" title="Clear selection" class="text-silver hover:text-white text-xs px-1.5 py-1">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-white text-obsidian font-semibold text-xs sm:text-sm px-4 py-3 rounded-xl shadow-2xl border-l-4 border-crimson transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    Notification
+  </div>
+
+  <!-- ==================== JAVASCRIPT: DATA & APPLICATION LOGIC ==================== -->
+  <script>
+    /**
+     * =========================================================================
+     * ADMIN-STYLE VEHICLE DATA STORE (carsCatalog)
+     * Easily add, edit, or remove cars here—all views, filters, details,
+     * price breakdowns, test-drive options, and comparisons update automatically.
+     * =========================================================================
+     */
+    const carsCatalog = [
+      {
+        id: 'sovereign-s90',
+        name: 'Sovereign S90 Turbo',
+        brand: 'Aurelia',
+        bodyType: 'Sedan',
+        featured: true,
+        available: 'In Stock — Immediate Delivery',
+        startingPrice: 44500, // USD
+        fuelType: 'Petrol',
+        transmission: 'Automatic',
+        seatingCapacity: 5,
+        keyHighlight: 'Adaptive air suspension & ventilated Nappa leather cabin',
+        engine: '2.0L Twin-Scroll Turbo Inline-4',
+        power: '295 HP @ 5,500 rpm',
+        torque: '420 Nm @ 2,100–4,800 rpm',
+        powerNumeric: 295,
+        torqueNumeric: 420,
+        mileage: '29 MPG Combined (12.3 km/l)',
+        mileageNumeric: 29,
+        drivetrain: 'AWD',
+        bootSpace: '485 Liters',
+        bootSpaceNumeric: 485,
+        dimensions: '4,963 mm L × 1,879 mm W × 1,443 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Obsidian Black', hex: '#14171F' },
+          { name: 'Arctic White', hex: '#F1F5F9' },
+          { name: 'Crimson Metallic', hex: '#BE123C' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1542362567-891d3e244e6b?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          '12.3" Infotainment System',
+          'Touchscreen & Voice Control',
+          '360° Surround Camera',
+          'Panoramic Sunroof',
+          '8 Airbags',
+          'ABS with EBD',
+          'Adaptive Cruise Control',
+          'Tri-Zone Climate Control',
+          'Wireless Charging Pad',
+          'Front & Rear Parking Sensors',
+          'Lane Keep Assist & Blind Spot Monitor'
+        ]
+      },
+      {
+        id: 'horizon-x7-suv',
+        name: 'Horizon X7 AWD',
+        brand: 'Krono',
+        bodyType: 'SUV',
+        featured: true,
+        available: 'In Stock — 3 Units Ready',
+        startingPrice: 56000,
+        fuelType: 'Hybrid',
+        transmission: 'Automatic',
+        seatingCapacity: 7,
+        keyHighlight: 'Mild-hybrid torque boost with 3-row family versatility',
+        engine: '2.5L Mild-Hybrid Turbo + e-Motor',
+        power: '330 HP @ 5,800 rpm',
+        torque: '480 Nm @ 2,000 rpm',
+        powerNumeric: 330,
+        torqueNumeric: 480,
+        mileage: '32 MPG Combined (13.6 km/l)',
+        mileageNumeric: 32,
+        drivetrain: 'All-Wheel Drive',
+        bootSpace: '640 Liters (3rd row folded)',
+        bootSpaceNumeric: 640,
+        dimensions: '4,920 mm L × 1,930 mm W × 1,745 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Graphite Slate', hex: '#334155' },
+          { name: 'Pearl White', hex: '#F8FAFC' },
+          { name: 'Midnight Navy', hex: '#0F172A' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          'Dual 14" Infotainment System',
+          'HD Touchscreen Display',
+          '360° Off-Road & Park Camera',
+          'Power Panoramic Sunroof',
+          '9 Airbags',
+          'ABS with Hill Descent Control',
+          'Stop & Go Cruise Control',
+          '4-Zone Climate Control',
+          'Dual Wireless Charging',
+          'Ultrasonic Parking Sensors',
+          'Autonomous Emergency Braking'
+        ]
+      },
+      {
+        id: 'apex-ev-gt',
+        name: 'Apex EV GT Dual-Motor',
+        brand: 'Volta',
+        bodyType: 'Electric',
+        featured: true,
+        available: 'In Stock — Fast Charge Ready',
+        startingPrice: 62500,
+        fuelType: 'Electric',
+        transmission: 'Direct Drive EV',
+        seatingCapacity: 5,
+        keyHighlight: '360-mile range & 0–60 mph in 3.9 seconds',
+        engine: 'Dual Permanent Magnet Electric Motors (88 kWh)',
+        power: '440 HP Instant',
+        torque: '660 Nm Instant',
+        powerNumeric: 440,
+        torqueNumeric: 660,
+        mileage: '118 MPGe (360 mi / 580 km range)',
+        mileageNumeric: 118,
+        drivetrain: 'Dual-Motor AWD',
+        bootSpace: '520 Liters + 75L Frunk',
+        bootSpaceNumeric: 595,
+        dimensions: '4,820 mm L × 1,895 mm W × 1,440 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Stealth Black', hex: '#090B0E' },
+          { name: 'Sonic Silver', hex: '#CBD5E1' },
+          { name: 'Pulse Red', hex: '#E11D48' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1554744512-d6c603f27c54?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          '15.4" Connected Infotainment',
+          'Responsive Glass Touchscreen',
+          '8-Camera Autopilot Vision',
+          'UV-Tinted Glass Roof',
+          '8 Airbags',
+          'ABS & Regenerative Braking',
+          'Highway Pilot Cruise Control',
+          'Heat-Pump Dual Climate Control',
+          'Qi Wireless Charging Dock',
+          '360° Proximity Sensors',
+          'Collision Avoidance & Cross-Traffic Alert'
+        ]
+      },
+      {
+        id: 'velocity-r-coupe',
+        name: 'Velocity R-Coupe V6',
+        brand: 'Aurelia',
+        bodyType: 'Coupe',
+        featured: false,
+        available: 'Limited Allocation — 2 Left',
+        startingPrice: 74000,
+        fuelType: 'Petrol',
+        transmission: 'Automatic',
+        seatingCapacity: 4,
+        keyHighlight: 'Twin-turbo V6 performance with track-tuned chassis',
+        engine: '3.0L Bi-Turbo V6',
+        power: '405 HP @ 6,100 rpm',
+        torque: '550 Nm @ 1,850–5,000 rpm',
+        powerNumeric: 405,
+        torqueNumeric: 550,
+        mileage: '24 MPG Combined (10.2 km/l)',
+        mileageNumeric: 24,
+        drivetrain: 'Rear-Wheel Drive',
+        bootSpace: '360 Liters',
+        bootSpaceNumeric: 360,
+        dimensions: '4,685 mm L × 1,865 mm W × 1,378 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Racing Crimson', hex: '#E11D48' },
+          { name: 'Carbon Shadow', hex: '#18181B' },
+          { name: 'Titanium Grey', hex: '#64748B' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          'Sport Telemetry Infotainment',
+          '12" Curved Touchscreen',
+          'Reversing & Track Camera',
+          'Tilt/Slide Sunroof',
+          '6 Performance Airbags',
+          'Track-Calibrated ABS',
+          'Cruise Control',
+          'Dual-Zone Climate Control',
+          'Wireless Charging',
+          'Front & Rear Parking Sensors',
+          'Stability Control & Roll Protection'
+        ]
+      },
+      {
+        id: 'pulse-hatch-rs',
+        name: 'Pulse Hatchback RS',
+        brand: 'Veloce',
+        bodyType: 'Hatchback',
+        featured: false,
+        available: 'In Stock — Ready for Test Drive',
+        startingPrice: 24500,
+        fuelType: 'Petrol',
+        transmission: 'Manual',
+        seatingCapacity: 5,
+        keyHighlight: '6-speed close-ratio manual & nimble urban handling',
+        engine: '1.5L Turbocharged Inline-3',
+        power: '168 HP @ 5,500 rpm',
+        torque: '245 Nm @ 1,700–4,000 rpm',
+        powerNumeric: 168,
+        torqueNumeric: 245,
+        mileage: '36 MPG Combined (15.3 km/l)',
+        mileageNumeric: 36,
+        drivetrain: 'Front-Wheel Drive',
+        bootSpace: '380 Liters',
+        bootSpaceNumeric: 380,
+        dimensions: '4,120 mm L × 1,775 mm W × 1,450 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Signal Red', hex: '#DC2626' },
+          { name: 'Glacier White', hex: '#F8FAFC' },
+          { name: 'Anthracite', hex: '#27272A' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          '10.25" Smart Infotainment',
+          'Apple CarPlay & Android Auto Touchscreen',
+          'HD Rearview Camera',
+          'Electric Sunroof',
+          '6 Airbags',
+          'ABS with Brake Assist',
+          'Cruise Control',
+          'Automatic Climate Control',
+          'Wireless Phone Charger',
+          'Rear Parking Sensors',
+          'Hill Start Assist & ESC'
+        ]
+      },
+      {
+        id: 'terra-d4-diesel',
+        name: 'Terra D4 Tourer SUV',
+        brand: 'Krono',
+        bodyType: 'SUV',
+        featured: false,
+        available: 'In Stock — Highway Ready',
+        startingPrice: 48900,
+        fuelType: 'Diesel',
+        transmission: 'Automatic',
+        seatingCapacity: 5,
+        keyHighlight: 'High-torque long-range diesel cruiser with 550 Nm pull',
+        engine: '2.2L Common-Rail Turbo Diesel',
+        power: '215 HP @ 3,750 rpm',
+        torque: '550 Nm @ 1,500–2,500 rpm',
+        powerNumeric: 215,
+        torqueNumeric: 550,
+        mileage: '38 MPG Combined (16.1 km/l)',
+        mileageNumeric: 38,
+        drivetrain: '4WD',
+        bootSpace: '590 Liters',
+        bootSpaceNumeric: 590,
+        dimensions: '4,760 mm L × 1,890 mm W × 1,690 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Basalt Black', hex: '#11151C' },
+          { name: 'Sandstone Silver', hex: '#94A3B8' },
+          { name: 'Deep Forest', hex: '#14532D' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          '12" Navigation Infotainment',
+          'Touchscreen Display',
+          '360° Camera System',
+          'Panoramic Sunroof',
+          '7 Airbags',
+          'ABS with Trailer Stability',
+          'Adaptive Cruise Control',
+          'Dual-Zone Climate Control',
+          'Wireless Charging',
+          'Front & Rear Parking Sensors',
+          'Lane Departure & Tire Pressure Monitor'
+        ]
+      },
+      {
+        id: 'voltair-city-ev',
+        name: 'Voltair City EV Plus',
+        brand: 'Volta',
+        bodyType: 'Electric',
+        featured: false,
+        available: 'In Stock — Immediate Delivery',
+        startingPrice: 36500,
+        fuelType: 'Electric',
+        transmission: 'Direct Drive EV',
+        seatingCapacity: 5,
+        keyHighlight: 'Agile zero-emission daily commuter with 295-mile range',
+        engine: 'Front Electric Drive Unit (64 kWh)',
+        power: '210 HP Instant',
+        torque: '350 Nm Instant',
+        powerNumeric: 210,
+        torqueNumeric: 350,
+        mileage: '124 MPGe (295 mi / 475 km range)',
+        mileageNumeric: 124,
+        drivetrain: 'Front-Wheel Drive',
+        bootSpace: '435 Liters',
+        bootSpaceNumeric: 435,
+        dimensions: '4,480 mm L × 1,810 mm W × 1,560 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Polar White', hex: '#F8FAFC' },
+          { name: 'Cyber Grey', hex: '#475569' },
+          { name: 'Crimson Accent', hex: '#E11D48' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          '12.8" EV Infotainment Hub',
+          'HD Touchscreen',
+          'Rear & Blind-Spot Camera',
+          'Glass Sunroof',
+          '6 Airbags',
+          'ABS & One-Pedal Regen',
+          'Smart Cruise Control',
+          'Automatic Climate Control',
+          'Wireless Charging',
+          'Parking Sensors',
+          'Forward Collision Warning'
+        ]
+      },
+      {
+        id: 'meridian-sedan-he',
+        name: 'Meridian Hybrid Prestige',
+        brand: 'Veloce',
+        bodyType: 'Sedan',
+        featured: false,
+        available: 'In Stock — 4 Units Ready',
+        startingPrice: 38200,
+        fuelType: 'Hybrid',
+        transmission: 'Automatic',
+        seatingCapacity: 5,
+        keyHighlight: 'Whisper-quiet hybrid cruise with ultra-low fuel bills',
+        engine: '2.0L Atkinson Hybrid + Electric Motor',
+        power: '225 HP Combined',
+        torque: '310 Nm Combined',
+        powerNumeric: 225,
+        torqueNumeric: 310,
+        mileage: '46 MPG Combined (19.5 km/l)',
+        mileageNumeric: 46,
+        drivetrain: 'Front-Wheel Drive',
+        bootSpace: '470 Liters',
+        bootSpaceNumeric: 470,
+        dimensions: '4,885 mm L × 1,855 mm W × 1,445 mm H',
+        safetyRating: '5-Star NCAP',
+        safetyNumeric: 5,
+        colors: [
+          { name: 'Platinum Silver', hex: '#CBD5E1' },
+          { name: 'Obsidian Black', hex: '#0F172A' },
+          { name: 'Pearl White', hex: '#F1F5F9' }
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=80',
+          'https://images.unsplash.com/photo-1542362567-891d3e244e6b?auto=format&fit=crop&w=1400&q=80'
+        ],
+        features: [
+          '11.6" Infotainment System',
+          'Touchscreen Display',
+          'Reverse Camera with Dynamic Guidelines',
+          'Sunroof',
+          '7 Airbags',
+          'ABS with EBD',
+          'Adaptive Cruise Control',
+          'Dual-Zone Climate Control',
+          'Wireless Charging',
+          'Front & Rear Parking Sensors',
+          'Blind Spot & Rear Cross Alert'
+        ]
+      }
+    ];
+
+    // Application State
+    const appState = {
+      currentView: 'home',
+      selectedCarId: carsCatalog[0].id,
+      activeGalleryIndex: 0,
+      compareIds: ['sovereign-s90', 'apex-ev-gt'], // Pre-populated with 2 cars for instant comparison
+      filters: {
+        brand: 'ALL',
+        bodyType: 'ALL',
+        fuelType: 'ALL',
+        transmission: 'ALL',
+        maxPrice: 120000
+      }
+    };
+
+    // Format Currency Helper
+    function formatUSD(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    // Calculate Transparent On-Road Breakdown
+    function getPriceBreakdown(exShowroomPrice) {
+      const rto = Math.round(exShowroomPrice * 0.085);       // 8.5% registration & tax estimate
+      const insurance = Math.round(exShowroomPrice * 0.032); // 3.2% comprehensive insurance estimate
+      const handling = 650;                                  // Documentation & delivery prep
+      const onRoad = exShowroomPrice + rto + insurance + handling;
+      return { exShowroomPrice, rto, insurance, handling, onRoad };
+    }
+
+    // Initialize Application on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('footer-year').textContent = new Date().getFullYear();
+      populateBrandFilter();
+      populateTestDriveCarDropdown();
+      setMinTestDriveDate();
+      renderFeaturedCars();
+      renderModelsGrid();
+      renderCarDetails();
+      renderComparisonView();
+      updateCompareBadges();
+      navigateTo('home', false);
+
+      // Sticky Navbar Shadow on Scroll
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 24) {
+          nav.classList.add('shadow-2xl', 'border-white/15');
+        } else {
+          nav.classList.remove('shadow-2xl', 'border-white/15');
+        }
+      });
+    });
+
+    // View Navigation Controller
+    function navigateTo(viewName, shouldScroll = true) {
+      const validViews = ['home', 'models', 'details', 'compare', 'test-drive', 'contact'];
+      const target = validViews.includes(viewName) ? viewName : 'home';
+      appState.currentView = target;
+
+      document.querySelectorAll('.page-view').forEach((sec) => {
+        sec.classList.add('hidden');
+        sec.classList.remove('view-enter');
+      });
+
+      const activeSection = document.getElementById(`view-${target}`);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+        void activeSection.offsetWidth; // trigger reflow
+        activeSection.classList.add('view-enter');
+      }
+
+      // Highlight Active Nav Link
+      document.querySelectorAll('.nav-link').forEach((btn) => {
+        const navKey = btn.getAttribute('data-nav');
+        if (navKey === target || (target === 'details' && navKey === 'models')) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      if (target === 'compare') {
+        renderComparisonView();
+      } else if (target === 'models') {
+        renderModelsGrid();
+      } else if (target === 'details') {
+        renderCarDetails();
+      }
+
+      updateCompareBadges();
+
+      if (shouldScroll) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Mobile Drawer Toggle
+    function toggleMobileMenu(forceState) {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('mobile-menu-icon');
+      const btn = document.getElementById('mobile-menu-toggle');
+      const willOpen = typeof forceState === 'boolean' ? forceState : menu.classList.contains('hidden');
+
+      if (willOpen) {
+        menu.classList.remove('hidden');
+        icon.className = 'fa-solid fa-xmark text-lg';
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.classList.add('hidden');
+        icon.className = 'fa-solid fa-bars text-lg';
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // Populate Unique Brands into Filter Dropdown
+    function populateBrandFilter() {
+      const brandSelect = document.getElementById('filter-brand');
+      const brands = [...new Set(carsCatalog.map((c) => c.brand))].sort();
+      brands.forEach((brand) => {
+        const opt = document.createElement('option');
+        opt.value = brand;
+        opt.textContent = brand;
+        brandSelect.appendChild(opt);
+      });
+    }
+
+    // Populate Car Models into Test Drive Dropdown
+    function populateTestDriveCarDropdown(selectedId = null) {
+      const select = document.getElementById('td-car');
+      select.innerHTML = '<option value="">Select a vehicle</option>';
+      carsCatalog.forEach((car) => {
+        const opt = document.createElement('option');
+        opt.value = car.id;
+        opt.textContent = `${car.brand} ${car.name} — ${formatUSD(car.startingPrice)}`;
+        if (selectedId && car.id === selectedId) {
+          opt.selected = true;
+        }
+        select.appendChild(opt);
+      });
+    }
+
+    // Set Minimum Date for Test Drive Input to Today
+    function setMinTestDriveDate() {
+      const dateInput = document.getElementById('td-date');
+      const todayStr = new Date().toISOString().split('T')[0];
+      dateInput.min = todayStr;
+      if (!dateInput.value) {
+        dateInput.value = todayStr;
+      }
+    }
+
+    // Reusable Car Card Builder
+    function buildCarCard(car, compactFeatured = false) {
+      const isCompared = appState.compareIds.includes(car.id);
+      const fallbackImg = `https://placehold.co/800x520/11151c/f8fafc?text=${encodeURIComponent(car.name)}`;
+
+      return `
+        <article class="car-card bg-charcoal border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between shadow-card">
+          <div>
+            <!-- Image Container -->
+            <div class="relative h-52 bg-graphite overflow-hidden cursor-pointer" onclick="openCarDetails('${car.id}')">
+              <img
+                src="${car.images[0]}"
+                alt="${car.brand} ${car.name}"
+                onerror="this.src='${fallbackImg}'"
+                class="car-img w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-obsidian/85 backdrop-blur-sm border border-white/10 text-[11px] font-semibold uppercase tracking-wider text-white">
+                ${car.bodyType}
+              </span>
+              <span class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-crimson text-white text-xs font-bold shadow">
+                ${formatUSD(car.startingPrice)}
+              </span>
+              <span class="absolute bottom-3 left-3 text-xs font-medium text-slate-200">
+                <i class="fa-solid fa-tag text-crimson mr-1"></i>${car.brand}
+              </span>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-5">
+              <h3 class="font-display text-lg font-bold text-white leading-snug mb-1 cursor-pointer hover:text-crimson transition-colors" onclick="openCarDetails('${car.id}')">
+                ${car.name}
+              </h3>
+              <p class="text-xs text-silver line-clamp-2 mb-4 min-h-[2rem]">
+                ${car.keyHighlight}
+              </p>
+
+              <!-- Key Specs Grid -->
+              <div class="grid grid-cols-3 gap-2 py-3 px-3 rounded-xl bg-graphite/80 border border-white/5 text-[11px] text-slate-300 mb-4">
+                <div class="flex flex-col">
+                  <span class="text-silver text-[10px]">Fuel</span>
+                  <span class="font-semibold text-white truncate"><i class="fa-solid fa-gas-pump text-crimson mr-1"></i>${car.fuelType}</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-silver text-[10px]">Gearbox</span>
+                  <span class="font-semibold text-white truncate"><i class="fa-solid fa-gears text-crimson mr-1"></i>${car.transmission.split(' ')[0]}</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-silver text-[10px]">Seats</span>
+                  <span class="font-semibold text-white truncate"><i class="fa-solid fa-users text-crimson mr-1"></i>${car.seatingCapacity} Seats</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="px-5 pb-5 pt-1 flex items-center gap-2.5">
+            <button
+              type="button"
+              onclick="openCarDetails('${car.id}')"
+              class="flex-1 bg-white hover:bg-crimson text-obsidian hover:text-white font-semibold text-xs uppercase tracking-wider py-2.5 px-3 rounded-xl transition-colors text-center"
+            >
+              View Details
+            </button>
+            <button
+              type="button"
+              onclick="toggleCompare('${car.id}')"
+              class="px-3.5 py-2.5 rounded-xl text-xs font-semibold border transition-colors inline-flex items-center gap-1.5 ${
+                isCompared
+                  ? 'bg-crimson/20 border-crimson text-white'
+                  : 'bg-graphite hover:bg-steel border-white/10 text-silver hover:text-white'
+              }"
+              title="${isCompared ? 'Remove from comparison' : 'Add to comparison'}"
+            >
+              <i class="fa-solid ${isCompared ? 'fa-check text-crimson' : 'fa-scale-balanced'}"></i>
+              <span>${compactFeatured ? 'Compare' : isCompared ? 'Added' : 'Compare'}</span>
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    // Render Featured Cars on Home Page
+    function renderFeaturedCars() {
+      const container = document.getElementById('featured-cars-grid');
+      const featured = carsCatalog.filter((c) => c.featured);
+      container.innerHTML = featured.map((car) => buildCarCard(car, true)).join('');
+    }
+
+    // Apply Filters & Render Models Grid
+    function applyFilters() {
+      appState.filters.brand = document.getElementById('filter-brand').value;
+      appState.filters.bodyType = document.getElementById('filter-body').value;
+      appState.filters.fuelType = document.getElementById('filter-fuel').value;
+      appState.filters.transmission = document.getElementById('filter-transmission').value;
+      appState.filters.maxPrice = Number(document.getElementById('filter-max-price').value);
+
+      document.getElementById('filter-price-label').textContent = formatUSD(appState.filters.maxPrice);
+      renderModelsGrid();
+    }
+
+    // Filter by Body Type from Footer Links
+    function filterByBodyType(bodyType) {
+      appState.filters.bodyType = bodyType;
+      document.getElementById('filter-body').value = bodyType;
+      navigateTo('models');
+      renderModelsGrid();
+    }
+
+    // Reset All Filters
+    function resetFilters() {
+      appState.filters = {
+        brand: 'ALL',
+        bodyType: 'ALL',
+        fuelType: 'ALL',
+        transmission: 'ALL',
+        maxPrice: 120000
+      };
+      document.getElementById('filter-brand').value = 'ALL';
+      document.getElementById('filter-body').value = 'ALL';
+      document.getElementById('filter-fuel').value = 'ALL';
+      document.getElementById('filter-transmission').value = 'ALL';
+      document.getElementById('filter-max-price').value = 120000;
+      document.getElementById('filter-price-label').textContent = formatUSD(120000);
+      renderModelsGrid();
+    }
+
+    // Render Filtered Models Grid
+    function renderModelsGrid() {
+      const grid = document.getElementById('models-grid');
+      const emptyBox = document.getElementById('models-empty');
+      const countText = document.getElementById('results-count');
+
+      const filtered = carsCatalog.filter((car) => {
+        const matchBrand = appState.filters.brand === 'ALL' || car.brand === appState.filters.brand;
+        const matchBody = appState.filters.bodyType === 'ALL' || car.bodyType === appState.filters.bodyType;
+        const matchFuel = appState.filters.fuelType === 'ALL' || car.fuelType === appState.filters.fuelType;
+        const matchTrans = appState.filters.transmission === 'ALL' || car.transmission === appState.filters.transmission;
+        const matchPrice = car.startingPrice <= appState.filters.maxPrice;
+        return matchBrand && matchBody && matchFuel && matchTrans && matchPrice;
+      });
+
+      countText.textContent = `Showing ${filtered.length} of ${carsCatalog.length} vehicles`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyBox.classList.remove('hidden');
+      } else {
+        emptyBox.classList.add('hidden');
+        grid.innerHTML = filtered.map((car) => buildCarCard(car, false)).join('');
+      }
+    }
+
+    // Open Car Details View for Specific Car
+    function openCarDetails(carId) {
+      const exists = carsCatalog.some((c) => c.id === carId);
+      appState.selectedCarId = exists ? carId : carsCatalog[0].id;
+      appState.activeGalleryIndex = 0;
+      renderCarDetails();
+      navigateTo('details');
+    }
+
+    // Change Active Gallery Photo in Car Details
+    function setGalleryImage(idx) {
+      appState.activeGalleryIndex = idx;
+      renderCarDetails();
+    }
+
+    // Render Full Car Details View
+    function renderCarDetails() {
+      const container = document.getElementById('car-details-container');
+      const car = carsCatalog.find((c) => c.id === appState.selectedCarId) || carsCatalog[0];
+      const safeIndex = Math.min(appState.activeGalleryIndex, car.images.length - 1);
+      const activeImg = car.images[safeIndex];
+      const fallbackMain = `https://placehold.co/1200x720/11151c/f8fafc?text=${encodeURIComponent(car.name)}`;
+      const pricing = getPriceBreakdown(car.startingPrice);
+      const isCompared = appState.compareIds.includes(car.id);
+
+      // Find Similar Cars (matching bodyType or brand first)
+      const similarCars = carsCatalog
+        .filter((c) => c.id !== car.id)
+        .sort((a, b) => {
+          const scoreA = (a.bodyType === car.bodyType ? 2 : 0) + (a.brand === car.brand ? 1 : 0);
+          const scoreB = (b.bodyType === car.bodyType ? 2 : 0) + (b.brand === car.brand ? 1 : 0);
+          return scoreB - scoreA;
+        })
+        .slice(0, 3);
+
+      container.innerHTML = `
+        <!-- Breadcrumb & Back -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <button type="button" onclick="navigateTo('models')" class="inline-flex items-center gap-2 text-sm font-semibold text-silver hover:text-white transition-colors">
+            <i class="fa-solid fa-arrow-left text-crimson"></i>
+            <span>Back to All Car Models</span>
+          </button>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            ${car.available}
+          </span>
+        </div>
+
+        <!-- Top Grid: Gallery + Summary & Price Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14">
+          <!-- Multi-Image Gallery (7 cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="relative aspect-[16/10] rounded-2xl overflow-hidden bg-charcoal border border-white/10 shadow-card">
+              <img
+                src="${activeImg}"
+                alt="${car.brand} ${car.name} view ${safeIndex + 1}"
+                onerror="this.src='${fallbackMain}'"
+                class="w-full h-full object-cover transition-all duration-300"
+              />
+              <span class="absolute bottom-3 right-3 px-3 py-1 rounded-lg bg-obsidian/80 backdrop-blur-sm text-xs text-slate-200 border border-white/10">
+                Photo ${safeIndex + 1} of ${car.images.length}
+              </span>
+            </div>
+
+            <!-- Thumbnails (3–5 images) -->
+            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+              ${car.images.map((imgUrl, idx) => `
+                <button
+                  type="button"
+                  onclick="setGalleryImage(${idx})"
+                  class="relative aspect-[16/10] rounded-xl overflow-hidden border-2 transition-all ${
+                    idx === safeIndex ? 'border-crimson scale-[1.02]' : 'border-white/10 opacity-70 hover:opacity-100'
+                  }"
+                >
+                  <img
+                    src="${imgUrl}"
+                    alt="${car.name} thumbnail ${idx + 1}"
+                    onerror="this.src='${fallbackMain}'"
+                    class="w-full h-full object-cover"
+                  />
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Title, Colors, Actions & On-Road Price Breakdown (5 cols) -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-charcoal border border-white/10 rounded-2xl p-6 shadow-card">
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-crimson mb-1">
+                <span>${car.brand}</span>
+                <span>•</span>
+                <span>${car.bodyType}</span>
+              </div>
+              <h1 class="font-display text-3xl sm:text-4xl font-bold text-white mb-2">${car.name}</h1>
+              <p class="text-sm text-silver mb-5">${car.keyHighlight}</p>
+
+              <div class="flex items-baseline justify-between py-4 border-y border-white/10 mb-5">
+                <span class="text-xs uppercase tracking-wider text-silver">Starting Ex-Showroom</span>
+                <span class="font-display text-3xl font-bold text-white">${formatUSD(car.startingPrice)}</span>
+              </div>
+
+              <!-- Color Swatches -->
+              <div class="mb-6">
+                <p class="text-xs font-semibold uppercase tracking-wider text-silver mb-2.5">Exterior Color Options</p>
+                <div class="flex flex-wrap gap-3">
+                  ${car.colors.map((c) => `
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-graphite border border-white/10 text-xs text-slate-200">
+                      <span class="w-3.5 h-3.5 rounded-full border border-white/30" style="background-color: ${c.hex};"></span>
+                      <span>${c.name}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Primary CTAs -->
+              <div class="flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onclick="openTestDriveForCar('${car.id}')"
+                  class="flex-1 bg-crimson hover:bg-crimsonDark text-white font-semibold text-sm uppercase tracking-wider py-3.5 px-5 rounded-xl shadow-glow transition-all inline-flex items-center justify-center gap-2"
+                >
+                  <i class="fa-solid fa-gauge-high"></i>
+                  <span>Book a Test Drive</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="toggleCompare('${car.id}')"
+                  class="px-4 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider border transition-colors inline-flex items-center justify-center gap-2 ${
+                    isCompared
+                      ? 'bg-white text-obsidian border-white'
+                      : 'bg-graphite hover:bg-steel text-white border-white/15'
+                  }"
+                >
+                  <i class="fa-solid fa-scale-balanced"></i>
+                  <span>${isCompared ? 'Comparing' : 'Compare'}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Price Breakdown Card -->
+            <div class="bg-charcoal border border-white/10 rounded-2xl p-6 shadow-card">
+              <h2 class="font-display text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-crimson"></i>
+                <span>Estimated Price Breakdown</span>
+              </h2>
+              <div class="space-y-2.5 text-sm">
+                <div class="flex justify-between text-slate-300">
+                  <span>Ex-Showroom Price</span>
+                  <span class="font-semibold text-white">${formatUSD(pricing.exShowroomPrice)}</span>
+                </div>
+                <div class="flex justify-between text-slate-300">
+                  <span>RTO & Registration (Est. 8.5%)</span>
+                  <span class="font-semibold text-white">${formatUSD(pricing.rto)}</span>
+                </div>
+                <div class="flex justify-between text-slate-300">
+                  <span>Comprehensive Insurance (Est. 3.2%)</span>
+                  <span class="font-semibold text-white">${formatUSD(pricing.insurance)}</span>
+                </div>
+                <div class="flex justify-between text-slate-300 pb-3 border-b border-white/10">
+                  <span>Documentation & Prep</span>
+                  <span class="font-semibold text-white">${formatUSD(pricing.handling)}</span>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                  <span class="font-display font-bold text-white">Estimated On-Road Price</span>
+                  <span class="font-display text-xl font-bold text-crimson">${formatUSD(pricing.onRoad)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Specifications & Features Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+          <!-- Full Specifications Table (7 cols) -->
+          <div class="lg:col-span-7 bg-charcoal border border-white/10 rounded-2xl p-6 sm:p-8 shadow-card">
+            <h2 class="font-display text-2xl font-bold text-white mb-6">Full Technical Specifications</h2>
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Engine</dt>
+                <dd class="font-semibold text-white mt-1">${car.engine}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Power</dt>
+                <dd class="font-semibold text-white mt-1">${car.power}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Torque</dt>
+                <dd class="font-semibold text-white mt-1">${car.torque}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Mileage / Efficiency</dt>
+                <dd class="font-semibold text-white mt-1">${car.mileage}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Fuel Type</dt>
+                <dd class="font-semibold text-white mt-1">${car.fuelType}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Transmission</dt>
+                <dd class="font-semibold text-white mt-1">${car.transmission}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Drivetrain</dt>
+                <dd class="font-semibold text-white mt-1">${car.drivetrain}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Seating Capacity</dt>
+                <dd class="font-semibold text-white mt-1">${car.seatingCapacity} Seats</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Boot Space</dt>
+                <dd class="font-semibold text-white mt-1">${car.bootSpace}</dd>
+              </div>
+              <div class="p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Safety Rating</dt>
+                <dd class="font-semibold text-emerald-400 mt-1">${car.safetyRating}</dd>
+              </div>
+              <div class="sm:col-span-2 p-3.5 rounded-xl bg-graphite/70 border border-white/5">
+                <dt class="text-xs text-silver uppercase tracking-wider">Dimensions</dt>
+                <dd class="font-semibold text-white mt-1">${car.dimensions}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Features & Safety Equipment (5 cols) -->
+          <div class="lg:col-span-5 bg-charcoal border border-white/10 rounded-2xl p-6 sm:p-8 shadow-card">
+            <h2 class="font-display text-2xl font-bold text-white mb-6">Features & Safety Suite</h2>
+            <ul class="space-y-3">
+              ${car.features.map((feat) => `
+                <li class="flex items-start gap-3 text-sm text-slate-200">
+                  <i class="fa-solid fa-circle-check text-crimson mt-1 shrink-0"></i>
+                  <span>${feat}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Similar Cars Section -->
+        <div class="pt-10 border-t border-white/10">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <span class="text-crimson font-semibold text-xs uppercase tracking-[0.2em]">Recommended Alternatives</span>
+              <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">Similar Cars</h2>
+            </div>
+            <button type="button" onclick="navigateTo('models')" class="text-sm font-semibold text-silver hover:text-crimson transition-colors">
+              See All <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            ${similarCars.map((sim) => buildCarCard(sim, false)).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Toggle Car in Comparison Selection (up to 3 cars)
+    function toggleCompare(carId) {
+      const idx = appState.compareIds.indexOf(carId);
+      if (idx > -1) {
+        appState.compareIds.splice(idx, 1);
+        showToast('Removed from comparison.');
+      } else {
+        if (appState.compareIds.length >= 3) {
+          showToast('You can compare up to 3 cars at a time. Remove one first.');
+          return;
+        }
+        appState.compareIds.push(carId);
+        showToast('Added to comparison.');
+      }
+
+      updateCompareBadges();
+
+      if (appState.currentView === 'models') renderModelsGrid();
+      if (appState.currentView === 'home') renderFeaturedCars();
+      if (appState.currentView === 'details') renderCarDetails();
+      if (appState.currentView === 'compare') renderComparisonView();
+    }
+
+    // Clear All Compared Cars
+    function clearComparison() {
+      appState.compareIds = [];
+      updateCompareBadges();
+      if (appState.currentView === 'models') renderModelsGrid();
+      if (appState.currentView === 'home') renderFeaturedCars();
+      if (appState.currentView === 'details') renderCarDetails();
+      if (appState.currentView === 'compare') renderComparisonView();
+      showToast('Comparison list cleared.');
+    }
+
+    // Update Nav & Floating Comparison Badges
+    function updateCompareBadges() {
+      const count = appState.compareIds.length;
+      const navBadge = document.getElementById('nav-compare-badge');
+      const mobileBadge = document.getElementById('mobile-compare-badge');
+      const modelsCount = document.getElementById('models-compare-count');
+      const floatingBar = document.getElementById('floating-compare-bar');
+      const floatingCount = document.getElementById('floating-compare-count');
+
+      if (navBadge) navBadge.textContent = count;
+      if (mobileBadge) mobileBadge.textContent = count;
+      if (modelsCount) modelsCount.textContent = count;
+      if (floatingCount) floatingCount.textContent = count;
+
+      if (floatingBar) {
+        if (count > 0 && appState.currentView !== 'compare') {
+          floatingBar.classList.remove('hidden');
+        } else {
+          floatingBar.classList.add('hidden');
+        }
+      }
+    }
+
+    // Update Specific Comparison Slot from Dropdown
+    function updateCompareSlot(slotIndex, newCarId) {
+      if (!newCarId) {
+        if (appState.compareIds[slotIndex]) {
+          appState.compareIds.splice(slotIndex, 1);
+        }
+      } else {
+        // Avoid duplicate car in another slot
+        const existingIdx = appState.compareIds.indexOf(newCarId);
+        if (existingIdx > -1 && existingIdx !== slotIndex) {
+          showToast('That car is already selected in another slot.');
+          renderComparisonView();
+          return;
+        }
+        if (appState.compareIds.length >= 3 && !appState.compareIds[slotIndex]) {
+          showToast('Maximum 3 cars allowed in comparison.');
+          renderComparisonView();
+          return;
+        }
+        appState.compareIds[slotIndex] = newCarId;
+      }
+
+      updateCompareBadges();
+      renderComparisonView();
+    }
+
+    // Render Comparison Page (Selectors + Side-by-Side Table with Best Value Highlights)
+    function renderComparisonView() {
+      const selectorsWrap = document.getElementById('compare-selectors');
+      const tableWrap = document.getElementById('compare-table-wrapper');
+
+      // Render 3 dropdown slots
+      selectorsWrap.innerHTML = [0, 1, 2].map((slotIdx) => {
+        const selectedId = appState.compareIds[slotIdx] || '';
+        return `
+          <div>
+            <label for="compare-slot-${slotIdx}" class="block text-xs font-semibold uppercase tracking-wider text-silver mb-2">
+              Vehicle Slot ${slotIdx + 1} ${slotIdx < 2 ? '*' : '(Optional)'}
+            </label>
+            <select
+              id="compare-slot-${slotIdx}"
+              onchange="updateCompareSlot(${slotIdx}, this.value)"
+              class="w-full bg-graphite text-white border border-white/10 rounded-xl px-3.5 py-2.5 text-sm focus:border-crimson focus:outline-none"
+            >
+              <option value="">-- Choose a car --</option>
+              ${carsCatalog.map((c) => `
+                <option value="${c.id}" ${c.id === selectedId ? 'selected' : ''}>
+                  ${c.brand} ${c.name} (${formatUSD(c.startingPrice)})
+                </option>
+              `).join('')}
+            </select>
+          </div>
+        `;
+      }).join('');
+
+      const activeCars = appState.compareIds
+        .map((id) => carsCatalog.find((c) => c.id === id))
+        .filter(Boolean);
+
+      if (activeCars.length < 2) {
+        tableWrap.innerHTML = `
+          <div class="bg-charcoal border border-white/10 rounded-2xl p-10 text-center">
+            <i class="fa-solid fa-scale-balanced text-4xl text-crimson mb-3"></i>
+            <h2 class="font-display text-2xl font-bold text-white mb-2">Select at Least 2 Cars to Compare</h2>
+            <p class="text-silver text-sm max-w-md mx-auto mb-6">
+              Choose 2 or 3 vehicles in the slots above or browse Car Models to add vehicles to your side-by-side comparison table.
+            </p>
+            <button type="button" onclick="navigateTo('models')" class="bg-crimson hover:bg-crimsonDark text-white font-semibold text-sm px-6 py-3 rounded-xl transition-colors">
+              Browse Car Models
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // Compute Best Numeric Values Where Applicable
+      const minPrice = Math.min(...activeCars.map((c) => c.startingPrice));
+      const maxPower = Math.max(...activeCars.map((c) => c.powerNumeric));
+      const maxTorque = Math.max(...activeCars.map((c) => c.torqueNumeric));
+      const maxMileage = Math.max(...activeCars.map((c) => c.mileageNumeric));
+      const maxSeats = Math.max(...activeCars.map((c) => c.seatingCapacity));
+      const maxBoot = Math.max(...activeCars.map((c) => c.bootSpaceNumeric));
+
+      const bestBadge = `<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">Best</span>`;
+
+      const rows = [
+        {
+          label: 'Starting Price',
+          renderCell: (c) => {
+            const isBest = c.startingPrice === minPrice;
+            return `<span class="font-display font-bold ${isBest ? 'text-emerald-300' : 'text-white'}">${formatUSD(c.startingPrice)}</span>${isBest ? bestBadge : ''}`;
+          }
+        },
+        {
+          label: 'Engine',
+          renderCell: (c) => `<span class="text-slate-200">${c.engine}</span>`
+        },
+        {
+          label: 'Power',
+          renderCell: (c) => {
+            const isBest = c.powerNumeric === maxPower;
+            return `<span class="${isBest ? 'font-bold text-emerald-300' : 'text-slate-200'}">${c.power}</span>${isBest ? bestBadge : ''}`;
+          }
+        },
+        {
+          label: 'Torque',
+          renderCell: (c) => {
+            const isBest = c.torqueNumeric === maxTorque;
+            return `<span class="${isBest ? 'font-bold text-emerald-300' : 'text-slate-200'}">${c.torque}</span>${isBest ? bestBadge : ''}`;
+          }
+        },
+        {
+          label: 'Mileage / Efficiency',
+          renderCell: (c) => {
+            const isBest = c.mileageNumeric === maxMileage;
+            return `<span class="${isBest ? 'font-bold text-emerald-300' : 'text-slate-200'}">${c.mileage}</span>${isBest ? bestBadge : ''}`;
+          }
+        },
+        {
+          label: 'Fuel Type',
+          renderCell: (c) => `<span class="text-slate-200">${c.fuelType}</span>`
+        },
+        {
+          label: 'Transmission',
+          renderCell: (c) => `<span class="text-slate-200">${c.transmission}</span>`
+        },
+        {
+          label: 'Seating Capacity',
+          renderCell: (c) => {
+            const isBest = c.seatingCapacity === maxSeats;
+            return `<span class="${isBest ? 'font-bold text-emerald-300' : 'text-slate-200'}">${c.seatingCapacity} Seats</span>${isBest ? bestBadge : ''}`;
+          }
+        },
+        {
+          label: 'Boot Space',
+          renderCell: (c) => {
+            const isBest = c.bootSpaceNumeric === maxBoot;
+            return `<span class="${isBest ? 'font-bold text-emerald-300' : 'text-slate-200'}">${c.bootSpace}</span>${isBest ? bestBadge : ''}`;
+          }
+        },
+        {
+          label: 'Safety Features',
+          renderCell: (c) => {
+            const safetyList = c.features.slice(-3).join(' • ');
+            return `<div><span class="block font-semibold text-emerald-300 text-xs mb-1">${c.safetyRating}</span><span class="text-xs text-slate-300">${safetyList}</span></div>`;
+          }
+        },
+        {
+          label: 'Key Features',
+          renderCell: (c) => `
+            <ul class="space-y-1 text-xs text-slate-300">
+              ${c.features.slice(0, 5).map((f) => `<li><i class="fa-solid fa-check text-crimson mr-1.5"></i>${f}</li>`).join('')}
+            </ul>
+          `
+        }
+      ];
+
+      tableWrap.innerHTML = `
+        <div class="bg-charcoal border border-white/10 rounded-2xl overflow-x-auto shadow-card">
+          <table class="w-full text-left border-collapse min-w-[680px]">
+            <thead>
+              <tr class="border-b border-white/10 bg-graphite/70">
+                <th class="p-4 sm:p-5 text-xs font-bold uppercase tracking-wider text-silver w-48">Specification</th>
+                ${activeCars.map((c) => `
+                  <th class="p-4 sm:p-5 align-top">
+                    <div class="rounded-xl overflow-hidden aspect-[16/9] mb-3 bg-obsidian border border-white/10">
+                      <img
+                        src="${c.images[0]}"
+                        alt="${c.name}"
+                        onerror="this.src='https://placehold.co/600x340/11151c/f8fafc?text=${encodeURIComponent(c.name)}'"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-crimson">${c.brand} • ${c.bodyType}</p>
+                    <h3 class="font-display text-lg font-bold text-white mt-0.5 mb-3">${c.name}</h3>
+                    <div class="flex flex-wrap gap-2">
+                      <button type="button" onclick="openCarDetails('${c.id}')" class="text-xs font-semibold bg-white/10 hover:bg-white text-white hover:text-obsidian px-3 py-1.5 rounded-lg transition-colors">
+                        Details
+                      </button>
+                      <button type="button" onclick="openTestDriveForCar('${c.id}')" class="text-xs font-semibold bg-crimson hover:bg-crimsonDark text-white px-3 py-1.5 rounded-lg transition-colors">
+                        Test Drive
+                      </button>
+                    </div>
+                  </th>
+                `).join('')}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/10 text-sm">
+              ${rows.map((row) => `
+                <tr class="hover:bg-white/[0.02] transition-colors">
+                  <td class="p-4 sm:p-5 font-semibold text-silver bg-graphite/30">${row.label}</td>
+                  ${activeCars.map((c) => `<td class="p-4 sm:p-5 align-top">${row.renderCell(c)}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Open Test Drive View Pre-Filled With Selected Car
+    function openTestDriveForCar(carId) {
+      populateTestDriveCarDropdown(carId);
+      setMinTestDriveDate();
+      navigateTo('test-drive');
+    }
+
+    // Field Error Helper
+    function setFieldError(fieldId, hasError) {
+      const errEl = document.querySelector(`[data-error-for="${fieldId}"]`);
+      const inputEl = document.getElementById(fieldId);
+      if (errEl) {
+        errEl.classList.toggle('hidden', !hasError);
+      }
+      if (inputEl) {
+        inputEl.classList.toggle('border-rose-500', hasError);
+      }
+    }
+
+    // Test Drive Form Validation & Submission
+    function handleTestDriveSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('td-name').value.trim();
+      const email = document.getElementById('td-email').value.trim();
+      const phone = document.getElementById('td-phone').value.trim();
+      const carId = document.getElementById('td-car').value;
+      const showroom = document.getElementById('td-showroom').value;
+      const date = document.getElementById('td-date').value;
+      const slot = document.getElementById('td-slot').value;
+      const message = document.getElementById('td-message').value.trim();
+
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const phoneValid = phone.replace(/\D/g, '').length >= 7;
+
+      setFieldError('td-name', !name);
+      setFieldError('td-email', !emailValid);
+      setFieldError('td-phone', !phoneValid);
+      setFieldError('td-car', !carId);
+      setFieldError('td-showroom', !showroom);
+      setFieldError('td-date', !date);
+      setFieldError('td-slot', !slot);
+
+      if (!name || !emailValid || !phoneValid || !carId || !showroom || !date || !slot) {
+        showToast('Please complete all required fields accurately.');
+        return;
+      }
+
+      const selectedCar = carsCatalog.find((c) => c.id === carId);
+      const carLabel = selectedCar ? `${selectedCar.brand} ${selectedCar.name}` : carId;
+
+      const banner = document.getElementById('td-confirmation');
+      const bannerText = document.getElementById('td-confirmation-text');
+      bannerText.innerHTML = `
+        <strong>Thank you! Your test-drive request has been received. Our team will contact you shortly.</strong><br />
+        <span class="text-xs text-emerald-100/90 mt-1 block">
+          Driver: <strong>${name}</strong> • Vehicle: <strong>${carLabel}</strong> • Showroom: <strong>${showroom}</strong> • Schedule: <strong>${date} (${slot})</strong>${message ? ` • Note: “${message}”` : ''}
+        </span>
+      `;
+      banner.classList.remove('hidden');
+      event.target.reset();
+      setMinTestDriveDate();
+      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      showToast('Test drive request confirmed!');
+    }
+
+    // Contact Form Validation & Submission
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('ct-name').value.trim();
+      const email = document.getElementById('ct-email').value.trim();
+      const phone = document.getElementById('ct-phone').value.trim();
+      const subject = document.getElementById('ct-subject').value.trim();
+      const message = document.getElementById('ct-message').value.trim();
+
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const phoneValid = phone.replace(/\D/g, '').length >= 7;
+
+      setFieldError('ct-name', !name);
+      setFieldError('ct-email', !emailValid);
+      setFieldError('ct-phone', !phoneValid);
+      setFieldError('ct-subject', !subject);
+      setFieldError('ct-message', !message);
+
+      if (!name || !emailValid || !phoneValid || !subject || !message) {
+        showToast('Please fill out all required contact fields.');
+        return;
+      }
+
+      const confirmBox = document.getElementById('contact-confirmation');
+      confirmBox.classList.remove('hidden');
+      event.target.reset();
+      confirmBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      showToast('Message sent to AutoVista Motors!');
+    }
+
+    // Toast Notification Helper
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
